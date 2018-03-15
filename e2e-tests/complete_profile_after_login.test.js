@@ -55,14 +55,17 @@ describe('register new user', function() {
         element.all(by.css('#countryOfResidence option')).then(function(options){ options[3].click(); });
 
 
+
         element(by.css("[formcontrolname=languages] button")).click();
-        element.all(by.css('[formcontrolname=languages] .dropdown-item')).then(function(options){ options[2].click(); });
+        element.all(by.css('[formcontrolname=languages] a')).then(function(options){ options[2].click(); });
+
 
         element(by.css('[formcontrolname=phoneNumber]')).click();//just to remove dropdown
-        element(by.css("[formcontrolname=services] ")).click();
+        // element(by.css("[formcontrolname=services] ")).click();
         element(by.css("[formcontrolname=services] button")).click();
 
-        element.all(by.css('[formcontrolname=services] li')).then(function(options){ options[1].click(); });
+        element.all(by.css('[formcontrolname=services] a')).then(function(options){ options[1].click(); });
+
         element(by.css('[formcontrolname=phoneNumber]')).click();//just to remove dropdown
 
         // element(by.css("[formcontrolname=languages] button")).click();

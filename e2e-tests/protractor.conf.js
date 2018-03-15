@@ -20,7 +20,7 @@ var reporter = new HtmlScreenshotReporter({
 
 exports.config = {
 
-   // seleniumAddress: 'http://localhost:4444/wd/hub',
+    // seleniumAddress: 'http://localhost:4444/wd/hub',
     allScriptsTimeout: 1100000000,
 
     specs: [
@@ -34,12 +34,13 @@ exports.config = {
 
     capabilities: {
         'browserName': 'chrome',
-        chromeOptions: {
-            args: [ "--headless", "--disable-gpu", "--window-size=1400x2000" ]
-        }
+        // chromeOptions: {
+        //     args: [ "--headless", "--disable-gpu", "--window-size=1400x2000" ]
+        // }
     },
 
-    baseUrl: 'http://localhost:3000/',
+    // baseUrl: 'http://localhost:3000/',
+    baseUrl: 'http://beta.ureed.net/',
 
     framework: 'jasmine',
 
@@ -50,7 +51,18 @@ exports.config = {
 
     // Assign the test reporter to each running instance
     onPrepare: function () {
-        global.config ={'backend_url':'http://localhost:8000/'};
+        global.config ={
+
+        //     'backend_url':'http://localhost:8000/',
+        // 'admin_username':'admin@sit-mena.com',
+        // 'admin_password':'N01D0tHi12',
+
+
+            'backend_url':'http://beta.ureed.net:8000/',
+        'admin_username':'product@ureed.com',
+        'admin_password':'RbbASkhaey'
+
+        };
 
         jasmine.getEnv().addReporter(reporter);
     },

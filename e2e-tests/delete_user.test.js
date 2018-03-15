@@ -11,8 +11,8 @@ describe('delete user before register', function() {
 
     it('1_ login to admin and delete the whole user ', function() {
         browser.get(config.backend_url + 'admin');
-        element(by.css('[name=username]')).sendKeys('admin@sit-mena.com');
-        element(by.css('[name=password]')).sendKeys('N01D0tHi12');
+        element(by.css('[name=username]')).sendKeys(config.admin_username);
+        element(by.css('[name=password]')).sendKeys(config.admin_password);
         element(by.css('[type=submit]')).click();
 
 
