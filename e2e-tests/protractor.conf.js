@@ -34,9 +34,9 @@ exports.config = {
 
     capabilities: {
         'browserName': 'chrome',
-        // chromeOptions: {
-        //     args: [ "--headless", "--disable-gpu", "--window-size=1400x2000" ]
-        // }
+         chromeOptions: {
+             args: [ "--headless", "--disable-gpu", "--window-size=1400x2000" ]
+         }
     },
 
     // baseUrl: 'http://localhost:3000/',
