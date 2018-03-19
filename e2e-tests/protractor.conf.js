@@ -59,7 +59,7 @@ exports.config = {
         // 'admin_password':'N01D0tHi12',
 
 
-            'backend_url':'http://beta.ureed.net:8000/',
+            'backend_url':'http://api.beta.ureed.net/',
         'admin_username':'product@ureed.com',
         'admin_password':'RbbASkhaey'
 
