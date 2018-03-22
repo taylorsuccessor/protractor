@@ -26,7 +26,9 @@ exports.config = {
     specs: [
         // '*.js',
 
-        'qistas_login.js',
+        'qistas.js',
+        'ureed_login.js',
+        'ureed_create_job.js'
     ],
 
     capabilities: {
@@ -60,9 +62,15 @@ exports.config = {
         'admin_username':'product@ureed.com',
         'admin_password':'RbbASkhaey',
 
+
             'qistas_link':'http://qistas.com:9997/dmz/login',
             'qistas_username':'ureed',
-            'qistas_password':'ur56125g26b'
+            'qistas_password':'ur56125g26b',
+
+            'ureed_link':'http://localhost:3000',
+            'ureed_username':'mohammad.hithnawi@ureed.com',
+            'ureed_password':'MLK012958',
+
 
         };
 
