@@ -26,7 +26,7 @@ exports.config = {
     specs: [
         // '*.js',
 
-        // 'qistas.js',
+        'qistas.js',
         'ureed_login.js',
         'ureed_create_job.js'
     ],
