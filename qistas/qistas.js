@@ -8,6 +8,29 @@ browser.driver.manage().window().maximize();
 
 var File = require('fs');
 
+function checkTheDataAlreadySync(from_date,to_date){
+
+
+    var content=File.readFileSync(config.qistas_records_date_file, "utf8");
+    var dates=  JSON.parse(content);
+
+    for (var i in dates.date_list){
+       if((dates.date_list[i].from <= from_date &&  dates.date_list[i].to >= from_date) ||
+           (dates.date_list[i].from <= to_date &&  dates.date_list[i].to >= to_date)
+       ){
+           return false
+       }
+    }
+
+    dates.date_list.push({"from":from_date,"to":to_date});
+
+    var content=File.writeFileSync(config.qistas_records_date_file,JSON.stringify(dates), "utf8");
+
+
+    return true;
+
+
+}
 
 
 describe('Qistas login and get data', function() {
@@ -29,8 +52,10 @@ describe('Qistas login and get data', function() {
 var moment = require('moment');
 var to_data=moment(new Date()).format( "YYYY-MM-DD");
 
-var  from_date= moment(to_data).add(-7,'days').format( "YYYY-MM-DD");
-
+var  from_date= moment(to_data).add(-6,'days').format( "YYYY-MM-DD");
+if (!checkTheDataAlreadySync(from_date,to_data)){
+    browser.close() ;
+}
 
 
         element(by.css('[name=from_date]')).sendKeys(from_date);
@@ -68,7 +93,16 @@ var  from_date= moment(to_data).add(-7,'days').format( "YYYY-MM-DD");
 
 
             File.writeFile(config.qistas_data_file,jsonPageBody,function(error){});
-
+// File.openSync(config.qistas_data_file, 'w');
+// File.open(config.qistas_data_file, "wx", function (err, fd) {
+//    fd.write(jsonString);
+//     });
+//
+//
+//
+//
+//         });
+        // browser.driver.sleep(5000);
     });
 
     });
