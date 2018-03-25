@@ -68,7 +68,7 @@ exports.config = {
             'qistas_password':'ur56125g26b',
             'qistas_data_file':'./qistas_data.txt',
 
-            'ureed_link':'http://beta.ureed.net',
+            'ureed_link':'http://ureed.com',
             'ureed_username':'mohammad.hithnawi@ureed.com',
             'ureed_password':'MLK012958',
 

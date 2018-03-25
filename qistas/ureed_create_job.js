@@ -198,9 +198,9 @@ var date=moment(new Date()).format( "YYYY-MM-DD");
 
 'Here are the details of your progress so far:\n'+
 
-'- You have worked on ('+jsonData.pages+') pages.\n'+
+'- You have worked on ('+jsonData.ALLPages+') pages.\n'+
 
-'- Qistas edited ('+jsonData.audited+') pages.\n'+
+'- Qistas edited ('+jsonData.pages+') pages.\n'+
 
 '- Changes on ('+(jsonData.audited - jsonData.errors)+') pages were accepted.\n'+
 
@@ -227,6 +227,9 @@ var date=moment(new Date()).format( "YYYY-MM-DD");
 
 }
 
+
+
+describe('all jobs create ', function() {
 
     var qistasJsonData=paraseQistasJsonData();
     var jobData={};
@@ -268,3 +271,5 @@ describe(i+'-create job process ('+jobData.title+') ', function() {
 
 
     }
+
+});

@@ -67,15 +67,10 @@ var  from_date= moment(to_data).add(-7,'days').format( "YYYY-MM-DD");
         jsonString=element(by.css('body')).getText().then(function(jsonPageBody){
 
 
- File.writeFileSync(config.qistas_data_file, jsonPageBody, function (err, file) {});
+            File.writeFile(config.qistas_data_file,jsonPageBody,function(error){});
 
+    });
 
-
-
-
-
-        });
-        // browser.driver.sleep(5000);
     });
 
 
