@@ -9,7 +9,7 @@ browser.driver.manage().window().maximize();
 var File = require('fs');
 
 function checkTheDataAlreadySync(from_date,to_date){
-
+return true;
 
     var content=File.readFileSync(config.qistas_records_date_file, "utf8");
     var dates=  JSON.parse(content);

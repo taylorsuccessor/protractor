@@ -13,7 +13,11 @@ var moment = require('moment');
 function selectProjectType(){
 
     browser.get(config.ureed_link+'/en/job/intro');
-    browser.driver.sleep(5000);
+
+       browser.wait(function() {
+        return element(by.cssContainingText('button','Choose Standard')).isPresent();
+    });
+
     element(by.cssContainingText('button','Choose Standard')).click();
 
     // browser.driver.sleep(10000);
@@ -92,11 +96,10 @@ function fillJobDetail(jobId,jobDetail){
     element(by.css('[formcontrolname=title]')).click();
 
 
-    element(by.css('[formcontrolname=isPublic][ng-reflect-value=false]')).click();
+    element.all(by.css('[formcontrolname=isPublic]')).then(function(radios){radios[1].click();});
 
 
     element(by.cssContainingText('button[type=submit]','Post Job')).click();
-
 
 
 
@@ -115,8 +118,15 @@ function assignFreelancer(jobData){
 
 
     browser.get(config.ureed_link+'/en/employer/find-freelancer?name='+ jobData.email +'&bestMatchOnly=1&page=1');
-    browser.driver.sleep(5000);
 
+
+//     var EC = protractor.ExpectedConditions;
+// browser.wait(EC.visibilityOf(element(by.css('.well.freelancer-wrapper'))), 20000,"Element not visible timing out");
+
+
+browser.wait(function() {
+        return element(by.css('.well.freelancer-wrapper')).isPresent();
+    },20000);
 
     browser.actions().mouseMove(element(by.css('.well.freelancer-wrapper'))).perform();
 
@@ -125,9 +135,9 @@ function assignFreelancer(jobData){
 
 
 
-    // browser.wait(function() {
-    //     return element(by.cssContainingText('.list-group-item.invite-fl-item button','ASSIGN')).isPresent();
-    // });
+    browser.wait(function() {
+        return element(by.cssContainingText('.list-group-item.invite-fl-item button','ASSIGN')).isPresent();
+    },20000);
 
 
     element(by.cssContainingText('.list-group-item.invite-fl-item button','ASSIGN')).click();
@@ -146,9 +156,9 @@ function createMilestonr(){
 
     /*_______________________________________________create_milestone*/
 
-    // browser.wait(function() {
-    //     return element(by.css('milestones-form [formcontrolname=name]')).isPresent();
-    // });
+    browser.wait(function() {
+        return element(by.css('milestones-form [formcontrolname=name]')).isPresent();
+    },20000);
 
     element(by.css('milestones-form [formcontrolname=name]')).sendKeys('M1');
     element(by.css('milestones-form [type=submit]')).click();
@@ -183,7 +193,7 @@ function prepareJobData(id,jsonData){
     // jsonData.user_email: 'i.abumustafa@hotmail.com',
     // jsonData.ALLPages: '42'
 
-var date=moment(new Date()).format( "YYYY-MM-DD");
+    var date=moment(new Date()).format( "YYYY-MM-DD");
 
     var title = id +' - qistas ('+date+')';
     // var description ='pages=('+jsonData.pages+') ___audited=('+jsonData.audited+') _____error_audited=('+jsonData.error_audited+') __'+
@@ -194,24 +204,24 @@ var date=moment(new Date()).format( "YYYY-MM-DD");
     var description='Hello ('+jsonData.Full_Name+'),\n'+
 
 
-'You are working on the following assignment from Qistas:('+title+').'+
+        'You are working on the following assignment from Qistas:('+title+').'+
 
-'Here are the details of your progress so far:\n'+
+        'Here are the details of your progress so far:\n'+
 
-'- You have worked on ('+jsonData.ALLPages+') pages.\n'+
+        '- You have worked on ('+jsonData.ALLPages+') pages.\n'+
 
-'- Qistas edited ('+jsonData.pages+') pages.\n'+
+        '- Qistas edited ('+jsonData.pages+') pages.\n'+
 
-'- Changes on ('+(jsonData.audited - jsonData.errors)+') pages were accepted.\n'+
+        '- Changes on ('+(jsonData.audited - jsonData.errors)+') pages were accepted.\n'+
 
-'- Changes on ('+jsonData.errors+') pages were rejected.\n'+
+        '- Changes on ('+jsonData.errors+') pages were rejected.\n'+
 
-'- ('+ (jsonData.pages -jsonData.audited)+') pages remaining.\n';
+        '- ('+ (jsonData.pages -jsonData.audited)+') pages remaining.\n';
 
 
 
     var number_of_words=jsonData.wordcount;
-    var budget=(number_of_words/255) * 0.2;
+    var budget=(number_of_words/255) * 0.282;
     budget=budget.toFixed(2);
     var email= jsonData.user_email;
     return    {
@@ -230,17 +240,18 @@ var date=moment(new Date()).format( "YYYY-MM-DD");
 
 
 describe('all jobs create ', function() {
-
-    var qistasJsonData=paraseQistasJsonData();
-    var jobData={};
-    for(var i in qistasJsonData){
-        jobData=prepareJobData(i,qistasJsonData[i]);
-
-
-
-describe(i+'-create job process ('+jobData.title+') ', function() {
     browser.waitForAngularEnabled(false);
 
+
+
+    var qistasJsonData=paraseQistasJsonData();
+
+  for(var x in qistasJsonData){
+
+        var jobData={};
+      (function(i,jobData){
+         // var i=x;
+        // jobData=prepareJobData(i,qistasJsonData[i]);
 
         it(i+'-Ureed select project TYPE',function(){
 
@@ -266,9 +277,7 @@ describe(i+'-create job process ('+jobData.title+') ', function() {
             createMilestonr();
         });
 
-
-});
-
+})(x,prepareJobData(x,qistasJsonData[x]));
 
     }
 

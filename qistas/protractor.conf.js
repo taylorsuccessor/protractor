@@ -26,7 +26,7 @@ exports.config = {
     specs: [
         // '*.js',
 
-        'qistas.js',
+        // 'qistas.js',
         'ureed_login.js',
         'ureed_create_job.js'
     ],
@@ -69,7 +69,8 @@ exports.config = {
             'qistas_data_file':'./qistas_data.txt',
             'qistas_records_date_file':'./qistas_records_date.txt',
 
-            'ureed_link':'http://beta.ureed.net',
+             'ureed_link':'http://beta.ureed.net',
+            //'ureed_link':'http://localhost:3000',
             'ureed_username':'mohammad.hithnawi@ureed.com',
             'ureed_password':'MLK012958',
 

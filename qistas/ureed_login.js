@@ -22,8 +22,9 @@ function loginClientSide(){
     element(by.css(loginData.email.selector)).sendKeys(loginData.email.test_data.exist);
 
     element(by.css(loginData.password.selector)).sendKeys(loginData.password.test_data.short);
-    element(by.css(loginData.submit.selector)).click();
 
+    element(by.css(loginData.submit.selector)).click();
+ browser.driver.sleep(5000);
 
 }
 
