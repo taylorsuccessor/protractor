@@ -6,12 +6,14 @@
 browser.driver.manage().window().maximize();
 
 
-
+var File = require('fs');
 
 
 
 describe('Qistas login and get data', function() {
     browser.waitForAngularEnabled(false);
+
+
 
 
 
@@ -24,8 +26,15 @@ describe('Qistas login and get data', function() {
         element(by.css('[type=submit]')).click();
 
 
-        element(by.css('[name=from_date]')).sendKeys('2018-03-01');
-        element(by.css('[name=to_date]')).sendKeys('2018-03-20');
+var moment = require('moment');
+var to_data=moment(new Date()).format( "YYYY-MM-DD");
+
+var  from_date= moment(to_data).add(-7,'days').format( "YYYY-MM-DD");
+
+
+
+        element(by.css('[name=from_date]')).sendKeys(from_date);
+        element(by.css('[name=to_date]')).sendKeys(to_data);
         element(by.css('input[value=json]')).click();
 
 
@@ -55,7 +64,17 @@ describe('Qistas login and get data', function() {
 
     it('get Qistas json', function() {
 
-        jsonString=element(by.css('body')).getText().then(function(jsonPageBody){paraseQistasJsonData(jsonPageBody);});
+        jsonString=element(by.css('body')).getText().then(function(jsonPageBody){
+
+
+ File.writeFileSync(config.qistas_data_file, jsonPageBody, function (err, file) {});
+
+
+
+
+
+
+        });
         // browser.driver.sleep(5000);
     });
 

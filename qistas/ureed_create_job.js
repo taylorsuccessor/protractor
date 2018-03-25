@@ -5,6 +5,10 @@
 
 browser.driver.manage().window().maximize();
 
+var File = require('fs');
+
+
+var moment = require('moment');
 
 function selectProjectType(){
 
@@ -39,7 +43,7 @@ function selectProjectType(){
 }
 
 
-function fillJobDetail(jobDetail){
+function fillJobDetail(jobId,jobDetail){
 
 
     /*______________________________________________________file_job_fields__*/
@@ -48,7 +52,7 @@ function fillJobDetail(jobDetail){
 
 
 
-    element(by.css('[formcontrolname=title]')).sendKeys('xxx_title');
+    element(by.css('[formcontrolname=title]')).sendKeys(jobDetail.title);
 
 
 
@@ -70,15 +74,15 @@ function fillJobDetail(jobDetail){
     element(by.css('[formcontrolname=title]')).click();
 
 
-    element.all(by.css('[formcontrolname=description]')).then(function(textareaArray){ textareaArray[1].sendKeys('xxx_description'); });
+    element.all(by.css('[formcontrolname=description]')).then(function(textareaArray){ textareaArray[1].sendKeys(jobDetail.description); });
 
 
-    element(by.css('[formcontrolname=numberOfWords]')).sendKeys('666');
+    element(by.css('[formcontrolname=numberOfWords]')).sendKeys(jobDetail.number_of_words);
     element(by.css('[formcontrolname=typeOfPayment][value=FX]')).click();
 
 
 
-    element(by.css('[formcontrolname=budget]')).sendKeys('1');
+    element(by.css('[formcontrolname=budget]')).sendKeys(jobDetail.budget);
 
 
 
@@ -102,7 +106,7 @@ function fillJobDetail(jobDetail){
 
 }
 
-function assignFreelancer(){
+function assignFreelancer(jobData){
 
 
     /*______________________________________________________assign_freelancer__*/
@@ -110,7 +114,7 @@ function assignFreelancer(){
 
 
 
-    browser.get(config.ureed_link+'/en/employer/find-freelancer?name=sara.alfuli@gmail.com&bestMatchOnly=1&page=1');
+    browser.get(config.ureed_link+'/en/employer/find-freelancer?name='+ jobData.email +'&bestMatchOnly=1&page=1');
     browser.driver.sleep(5000);
 
 
@@ -121,9 +125,9 @@ function assignFreelancer(){
 
 
 
-    browser.wait(function() {
-        return element(by.cssContainingText('.list-group-item.invite-fl-item button','ASSIGN')).isPresent();
-    });
+    // browser.wait(function() {
+    //     return element(by.cssContainingText('.list-group-item.invite-fl-item button','ASSIGN')).isPresent();
+    // });
 
 
     element(by.cssContainingText('.list-group-item.invite-fl-item button','ASSIGN')).click();
@@ -142,9 +146,9 @@ function createMilestonr(){
 
     /*_______________________________________________create_milestone*/
 
-    browser.wait(function() {
-        return element(by.css('milestones-form [formcontrolname=name]')).isPresent();
-    });
+    // browser.wait(function() {
+    //     return element(by.css('milestones-form [formcontrolname=name]')).isPresent();
+    // });
 
     element(by.css('milestones-form [formcontrolname=name]')).sendKeys('M1');
     element(by.css('milestones-form [type=submit]')).click();
@@ -155,57 +159,112 @@ function createMilestonr(){
 
 
 
-    browser.driver.sleep(50000);
     /*____________________________________________END___create_milestone*/
 
 
 }
-function paraseQistasJsonData(jsonString){
+function paraseQistasJsonData(){
 
+    var content=File.readFileSync(config.qistas_data_file, "utf8");
+    return  JSON.parse(content);
 
-
-
-
-    //
-    //     var jsonData = JSON.parse(jsonString);
-    // for(var index in jsonData){
-    //         console.log(jsonData[index]);
-    //     }
-    //     console.log(jsonData)
 }
 
 
+function prepareJobData(id,jsonData){
 
-describe('Qistas login and get data', function() {
+    //      jsonData.pages: 93,
+    // jsonData.audited: 93,
+    // jsonData.error_audited: 0,
+    // jsonData.errors: 60,
+    // jsonData.wordcount: 19317,
+    // jsonData.errors_wordcount: 0,
+    // jsonData.Full_Name: 'Ibrahim Amjad Abumustafa',
+    // jsonData.user_email: 'i.abumustafa@hotmail.com',
+    // jsonData.ALLPages: '42'
+
+var date=moment(new Date()).format( "YYYY-MM-DD");
+
+    var title = id +' - qistas ('+date+')';
+    // var description ='pages=('+jsonData.pages+') ___audited=('+jsonData.audited+') _____error_audited=('+jsonData.error_audited+') __'+
+    //     'errors=('+jsonData.errors+') ____errors_wordcount=('+jsonData.errors_wordcount+') __ALLPages=('+jsonData.ALLPages+')'+
+    //     '____Full_Name=('+jsonData.Full_Name+')';
+
+
+    var description='Hello ('+jsonData.Full_Name+'),\n'+
+
+
+'You are working on the following assignment from Qistas:('+title+').'+
+
+'Here are the details of your progress so far:\n'+
+
+'- You have worked on ('+jsonData.pages+') pages.\n'+
+
+'- Qistas edited ('+jsonData.audited+') pages.\n'+
+
+'- Changes on ('+(jsonData.audited - jsonData.errors)+') pages were accepted.\n'+
+
+'- Changes on ('+jsonData.errors+') pages were rejected.\n'+
+
+'- ('+ (jsonData.pages -jsonData.audited)+') pages remaining.\n';
+
+
+
+    var number_of_words=jsonData.wordcount;
+    var budget=(number_of_words/255) * 0.2;
+    budget=budget.toFixed(2);
+    var email= jsonData.user_email;
+    return    {
+        'id':id,
+        'title':title,
+        'description':description,
+        'number_of_words':number_of_words,
+        'budget':budget,
+        'email':email,
+
+    }
+
+
+}
+
+
+    var qistasJsonData=paraseQistasJsonData();
+    var jobData={};
+    for(var i in qistasJsonData){
+        jobData=prepareJobData(i,qistasJsonData[i]);
+
+
+
+describe(i+'-create job process ('+jobData.title+') ', function() {
     browser.waitForAngularEnabled(false);
 
-    for(var i in [1,2,3,4,5]){
-        it('Ureed select project TYPE',function(){
+
+        it(i+'-Ureed select project TYPE',function(){
 
             selectProjectType();
         });
 
 
 
-        it('fill details',function(){
+        it(i+'-fill details',function(){
 
-            fillJobDetail({});
+            fillJobDetail(i,jobData);
         });
 
 
-        it('assign Freelancer',function(){
+        it(i+'assign Freelancer('+jobData.email+')',function(){
 
-            assignFreelancer();
+            assignFreelancer(jobData);
         });
 
 
-        it('createMilestonr',function(){
+        it(i+'createMilestonr',function(){
 
             createMilestonr();
         });
 
-    }
-
 
 });
 
+
+    }
