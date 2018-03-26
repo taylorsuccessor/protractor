@@ -14,9 +14,11 @@ function selectProjectType(){
 
     browser.get(config.ureed_link+'/en/job/intro');
 
+    browser.waitForAngularEnabled(false);
+
        browser.wait(function() {
         return element(by.cssContainingText('button','Choose Standard')).isPresent();
-    });
+    },10000);
 
     element(by.cssContainingText('button','Choose Standard')).click();
 
@@ -118,6 +120,8 @@ function assignFreelancer(jobData){
 
 
     browser.get(config.ureed_link+'/en/employer/find-freelancer?name='+ jobData.email +'&bestMatchOnly=1&page=1');
+  browser.driver.sleep(5000);
+    browser.waitForAngularEnabled(false);
 
 
 //     var EC = protractor.ExpectedConditions;
