@@ -123,7 +123,7 @@ function assignFreelancer(jobData){
 
 
 
-    browser.get(config.ureed_link+'/en/employer/find-freelancer?name='+ jobData.email +'&bestMatchOnly=1&page=1');
+    browser.get(config.ureed_link+'/en/employer/find-freelancer?name='+ (jobData.email.toLowerCase()) +'&bestMatchOnly=1&page=1');
     browser.waitForAngularEnabled(false);
     browser.driver.sleep(5000);
     browser.executeScript('document.querySelector(\'.sit-loader\').style.display = "none"');
