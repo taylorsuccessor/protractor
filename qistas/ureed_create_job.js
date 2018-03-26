@@ -12,15 +12,16 @@ var moment = require('moment');
 
 function selectProjectType(){
 
+    browser.executeScript('document.querySelector(\'.sit-loader\').style.display = "none"');
     browser.get(config.ureed_link+'/en/job/intro');
 
-    browser.waitForAngularEnabled(false);
+    browser.executeScript('document.querySelector(\'.sit-loader\').style.display = "none"');
 
     browser.wait(function() {
         return element(by.cssContainingText('button','Choose Standard')).isPresent();
     },10000);
 
-    element(by.cssContainingText('button','Choose Standard')).click();
+    element.all(by.cssContainingText('button','Choose Standard')).then(function(buttons){buttons[0].click();});
 
     // browser.driver.sleep(10000);
 
@@ -55,6 +56,7 @@ function fillJobDetail(jobId,jobDetail){
     /*______________________________________________________file_job_fields__*/
     browser.driver.sleep(5000);
     browser.executeScript('document.querySelector(\'.chatBox\').style.display = "none"');
+    browser.executeScript('document.querySelector(\'.sit-loader\').style.display = "none"');
 
 
 
@@ -122,6 +124,7 @@ function assignFreelancer(jobData){
     browser.get(config.ureed_link+'/en/employer/find-freelancer?name='+ jobData.email +'&bestMatchOnly=1&page=1');
     browser.waitForAngularEnabled(false);
     browser.driver.sleep(5000);
+    browser.executeScript('document.querySelector(\'.sit-loader\').style.display = "none"');
 
 
 //     var EC = protractor.ExpectedConditions;
@@ -142,14 +145,22 @@ function assignFreelancer(jobData){
     },20000);
     browser.executeScript('document.querySelector(\'.row.buttons-wrapper\').style.visibility = "visible"');
 
-    element(by.cssContainingText('.well.freelancer-wrapper a','ASSIGN')).click();
+    element.all(by.cssContainingText('.well.freelancer-wrapper a','ASSIGN')).then(function(assignA){assignA[0].click();});
 
 
     browser.wait(function() {
         return element(by.cssContainingText('.list-group-item.invite-fl-item button','ASSIGN')).isPresent();
     },20000);
 
-    element(by.cssContainingText('.list-group-item.invite-fl-item button','ASSIGN')).click();
+    if(element(by.cssContainingText('.list-group-item.invite-fl-item  .job-title',jobData.title)).isPresent()){
+
+
+    element.all(by.cssContainingText('.list-group-item.invite-fl-item button','ASSIGN')).then(function(assignButton){assignButton[0].click();});
+    }else{
+
+    element(by.css('Not exsit project so we can not assign')).click();
+    }
+
 
 
 
@@ -233,7 +244,7 @@ var  from_date= moment(date).add(-6,'days').format( "YYYY-MM-DD");
 
 
     var number_of_words=jsonData.wordcount;
-    var budget=(number_of_words/255) * 0.282;
+    var budget=(number_of_words/250) * 0.282;
     budget=budget.toFixed(2);
     var email= jsonData.user_email;
     return    {
