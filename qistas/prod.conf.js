@@ -58,7 +58,7 @@ exports.config = {
         // 'admin_password':'N01D0tHi12',
 
 
-            'backend_url':'http://api.beta.ureed.net/',
+            'backend_url':'http://api.ureed.com/',
         'admin_username':'product@ureed.com',
         'admin_password':'RbbASkhaey',
 
@@ -69,7 +69,7 @@ exports.config = {
             'qistas_data_file':'./qistas_data.txt',
             'qistas_records_date_file':'./qistas_records_date.txt',
 
-             'ureed_link':'http://beta.ureed.net',
+             'ureed_link':'http://ureed.com',
             //'ureed_link':'http://localhost:3000',
             'ureed_username':'mohammad.hithnawi@ureed.com',
             'ureed_password':'MLK012958',

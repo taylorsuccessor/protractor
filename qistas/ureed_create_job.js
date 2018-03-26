@@ -16,7 +16,7 @@ function selectProjectType(){
 
     browser.waitForAngularEnabled(false);
 
-       browser.wait(function() {
+    browser.wait(function() {
         return element(by.cssContainingText('button','Choose Standard')).isPresent();
     },10000);
 
@@ -120,29 +120,34 @@ function assignFreelancer(jobData){
 
 
     browser.get(config.ureed_link+'/en/employer/find-freelancer?name='+ jobData.email +'&bestMatchOnly=1&page=1');
-  browser.driver.sleep(5000);
     browser.waitForAngularEnabled(false);
+    browser.driver.sleep(5000);
 
 
 //     var EC = protractor.ExpectedConditions;
 // browser.wait(EC.visibilityOf(element(by.css('.well.freelancer-wrapper'))), 20000,"Element not visible timing out");
 
 
-browser.wait(function() {
+    browser.wait(function() {
         return element(by.css('.well.freelancer-wrapper')).isPresent();
     },20000);
 
     browser.actions().mouseMove(element(by.css('.well.freelancer-wrapper'))).perform();
 
 
-    element(by.cssContainingText('.well.freelancer-wrapper a','ASSIGN')).click();
+    browser.driver.sleep(5000);
 
+    browser.wait(function() {
+        return element(by.css('.well.freelancer-wrapper')).isPresent();
+    },20000);
+    browser.executeScript('document.querySelector(\'.row.buttons-wrapper\').style.visibility = "visible"');
+
+    element(by.cssContainingText('.well.freelancer-wrapper a','ASSIGN')).click();
 
 
     browser.wait(function() {
         return element(by.cssContainingText('.list-group-item.invite-fl-item button','ASSIGN')).isPresent();
     },20000);
-
 
     element(by.cssContainingText('.list-group-item.invite-fl-item button','ASSIGN')).click();
 
@@ -199,7 +204,10 @@ function prepareJobData(id,jsonData){
 
     var date=moment(new Date()).format( "YYYY-MM-DD");
 
-    var title = id +' - qistas ('+date+')';
+
+var  from_date= moment(date).add(-6,'days').format( "YYYY-MM-DD");
+
+    var title = id +' - qistas -'+jsonData.Full_Name+' ('+date+') ';
     // var description ='pages=('+jsonData.pages+') ___audited=('+jsonData.audited+') _____error_audited=('+jsonData.error_audited+') __'+
     //     'errors=('+jsonData.errors+') ____errors_wordcount=('+jsonData.errors_wordcount+') __ALLPages=('+jsonData.ALLPages+')'+
     //     '____Full_Name=('+jsonData.Full_Name+')';
@@ -212,13 +220,13 @@ function prepareJobData(id,jsonData){
 
         'Here are the details of your progress so far:\n'+
 
-        '- You have worked on ('+jsonData.ALLPages+') pages.\n'+
+        '- You have worked on ('+jsonData.ALLPages+') pages during '+from_date+' to '+date+' .\n'+
 
         '- Qistas edited ('+jsonData.pages+') pages.\n'+
 
-        '- Changes on ('+(jsonData.audited - jsonData.errors)+') pages were accepted.\n'+
+        '- Changes on ('+(jsonData.audited )+') pages were accepted.\n'+
 
-        '- Changes on ('+jsonData.errors+') pages were rejected.\n'+
+        '- Changes on ('+jsonData.error_audited+') pages were rejected.\n'+
 
         '- ('+ (jsonData.pages -jsonData.audited)+') pages remaining.\n';
 
@@ -250,38 +258,38 @@ describe('all jobs create ', function() {
 
     var qistasJsonData=paraseQistasJsonData();
 
-  for(var x in qistasJsonData){
+    for(var x in qistasJsonData){
 
         var jobData={};
-      (function(i,jobData){
-         // var i=x;
-        // jobData=prepareJobData(i,qistasJsonData[i]);
+        (function(i,jobData){
+            // var i=x;
+            // jobData=prepareJobData(i,qistasJsonData[i]);
 
-        it(i+'-Ureed select project TYPE',function(){
+            it(i+'-Ureed select project TYPE',function(){
 
-            selectProjectType();
-        });
-
-
-
-        it(i+'-fill details',function(){
-
-            fillJobDetail(i,jobData);
-        });
+                selectProjectType();
+            });
 
 
-        it(i+'assign Freelancer('+jobData.email+')',function(){
 
-            assignFreelancer(jobData);
-        });
+            it(i+'-fill details',function(){
+
+                fillJobDetail(i,jobData);
+            });
 
 
-        it(i+'createMilestonr',function(){
+            it(i+'assign Freelancer('+jobData.email+')',function(){
 
-            createMilestonr();
-        });
+                assignFreelancer(jobData);
+            });
 
-})(x,prepareJobData(x,qistasJsonData[x]));
+
+            it(i+'createMilestonr',function(){
+
+                createMilestonr();
+            });
+
+        })(x,prepareJobData(x,qistasJsonData[x]));
 
     }
 
