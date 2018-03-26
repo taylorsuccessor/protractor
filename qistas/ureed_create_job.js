@@ -14,12 +14,12 @@ function selectProjectType(){
 
     browser.executeScript('document.querySelector(\'.sit-loader\').style.display = "none"');
     browser.get(config.ureed_link+'/en/job/intro');
-
+ browser.driver.sleep(5000);
     browser.executeScript('document.querySelector(\'.sit-loader\').style.display = "none"');
 
     browser.wait(function() {
         return element(by.cssContainingText('button','Choose Standard')).isPresent();
-    },10000);
+    },20000);
 
     element.all(by.cssContainingText('button','Choose Standard')).then(function(buttons){buttons[0].click();});
 
@@ -58,7 +58,9 @@ function fillJobDetail(jobId,jobDetail){
     browser.executeScript('document.querySelector(\'.chatBox\').style.display = "none"');
     browser.executeScript('document.querySelector(\'.sit-loader\').style.display = "none"');
 
-
+   browser.wait(function() {
+        return element(by.css('[formcontrolname=title]')).isPresent();
+    },20000);
 
     element(by.css('[formcontrolname=title]')).sendKeys(jobDetail.title);
 
