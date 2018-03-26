@@ -23,11 +23,11 @@ function selectProjectType(){
 
     element.all(by.cssContainingText('button','Choose Standard')).then(function(buttons){buttons[0].click();});
 
-    // browser.driver.sleep(10000);
+     browser.driver.sleep(5000);
 
     browser.wait(function() {
         return element(by.css('[class=modal-body] select  option')).isPresent();
-    });
+    },20000);
 
 
 
