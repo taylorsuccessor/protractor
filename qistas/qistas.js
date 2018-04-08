@@ -93,6 +93,14 @@ if (!checkTheDataAlreadySync(from_date,to_data)){
 
 
             File.writeFile(config.qistas_data_file,jsonPageBody,function(error){});
+
+
+//                 var fd = File.openSync(config.qistas_data_file, 'w');
+// File.writeSync(fd, jsonPageBody);
+// File.closeSync(fd);
+
+
+
 // File.openSync(config.qistas_data_file, 'w');
 // File.open(config.qistas_data_file, "wx", function (err, fd) {
 //    fd.write(jsonString);
