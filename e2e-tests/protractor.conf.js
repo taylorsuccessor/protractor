@@ -25,17 +25,19 @@ exports.config = {
 
     specs: [
         // '*.js',
-
-        'delete_user.test.js',
-        'register.test.js',
-        'activate_user.test.js',
-        'complete_profile_after_login.test.js',
+        'twitter.test.js',
+//
+//        'delete_user.test.js',
+//        'register.test.js',
+//        'activate_user.test.js',
+//        'complete_profile_after_login.test.js',
     ],
 
     capabilities: {
         'browserName': 'chrome',
          chromeOptions: {
-             args: [ "--headless", "--disable-gpu", "--window-size=1400x2000",'--login-user=ureed', '--login-password=cross8wind$']
+             args: [ "--disable-gpu", "--window-size=1400x2000",'--login-user=ureed', '--login-password=cross8wind$']
+             // args: [ "--headless", "--disable-gpu", "--window-size=1400x2000",'--login-user=ureed', '--login-password=cross8wind$']
          },
 
     },

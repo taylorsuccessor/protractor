@@ -1,30 +1,54 @@
-<html><head><meta charset="utf-8"><style>body { font-family: Arial; }ul { list-style-position: inside; }li img { max-width: 100%; }span.passed { padding: 0 1em; color: green; }span.failed { padding: 0 1em; color: red; }span.pending { padding: 0 1em; color: orange; }span.stacktrace { white-space: pre; border: 1px solid rgb(0, 0, 0); font-size: 9pt; padding: 4px; background-color: rgb(204, 204, 204); }</style><script type="text/javascript">function showhide(id) {var e = document.getElementById(id);e.style.display = (e.style.display === "block") ? "none" : "block";}function buildQuickLinks() {var failedSpecs = document.querySelectorAll("li.failed");var quickLinksContainer = document.getElementById("quickLinks");if (!quickLinksContainer) return;if (failedSpecs.length > 0) { document.getElementById("quickLinksHeader").textContent = "Quicklink of Failure"}for (var i = 0; i < failedSpecs.length; ++i) {var li = document.createElement("li");var a = document.createElement("a");a.href = "#" + failedSpecs[i].id;a.textContent = failedSpecs[i].dataset.name + "  (" + failedSpecs[i].dataset.browser + ")";li.appendChild(a);quickLinksContainer.appendChild(li);}}function updatePassCount() {var totalPassed = document.querySelectorAll("li.passed").length;var totalFailed = document.querySelectorAll("li.failed").length;var totalSpecs = totalFailed + totalPassed;console.log("passed: %s, failed: %s, total: %s", totalPassed, totalFailed, totalSpecs);document.getElementById("summaryTotalSpecs").textContent = document.getElementById("summaryTotalSpecs").textContent + totalSpecs;document.getElementById("summaryTotalFailed").textContent = document.getElementById("summaryTotalFailed").textContent + totalFailed;if (totalFailed) {document.getElementById("summary").className = "failed";}}function start() {updatePassCount();buildQuickLinks();}window.onload = start;</script></head><body><h1>Ureed</h1><div id="summary" class="passed"><h4>Summary</h4><ul><li id="summaryTotalSpecs">Total specs tested: </li><li id="summaryTotalFailed">Total failed: </li></ul></div><ul style="list-style-type:none"><h4>delete user before register (5 s)</h4><li id="a3508a70-2b51-11e8-ac73-7f7436797d30" class="passed" data-spec="spec0" data-name="1_ login to admin and delete the whole user" data-browser="chrome"><span class="passed">&#10003;</span><a href="177ef9f7f017b0394e214f6e36c9adf2.png">1_ login to admin and delete the whole user</a>(5 s)</li></ul><ul style="list-style-type:none"><h4>register new user (12 s)</h4><li id="a350b180-2b51-11e8-ac73-7f7436797d30" class="passed" data-spec="spec1" data-name="should automatically redirect to /en/account/register" data-browser="chrome"><span class="passed">&#10003;</span><a href="c3e7cc349ffb84c94c28a5b5419b9e2f.png">should automatically redirect to /en/account/register</a>(12 s)</li></ul><ul style="list-style-type:none"><h4>activate user from admin after login  (3 s)</h4><li id="a350b181-2b51-11e8-ac73-7f7436797d30" class="passed" data-spec="spec2" data-name="1_ activate user" data-browser="chrome"><span class="passed">&#10003;</span><a href="6c76d6e669e17e1be6df6d5691244fa1.png">1_ activate user</a>(3 s)</li></ul><ul style="list-style-type:none"><h4>register new user (12 s)</h4><li id="a350b182-2b51-11e8-ac73-7f7436797d30" class="passed" data-spec="spec3" data-name="login after register" data-browser="chrome"><span class="passed">&#10003;</span><a href="32e84b12cf5cb4c4c11b56020919bcd1.png">login after register</a>(6 s)</li><li id="a350b183-2b51-11e8-ac73-7f7436797d30" class="failed" data-spec="spec4" data-name="complete profile" data-browser="chrome"><span class="failed">&#10007;</span><a href="4567304344485242afe65ac39f81c08a.png">complete profile</a>(5 s)<ul><li>Failed: Cannot read property &#39;click&#39; of undefined [<a href="javascript:showhide('spec4-Linux-chrome-65.0.3325.1460')">stack</a>]<br/><span style="display: none" id="spec4-Linux-chrome-65.0.3325.1460" class="stacktrace">TypeError: Cannot read property &#39;click&#39; of undefined
-    at /home/taylorsuccessor/ureed/protractor/e2e-tests/complete_profile_after_login.test.js:53:81
-    at ManagedPromise.invokeCallback_ (/usr/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:1376:14)
-    at TaskQueue.execute_ (/usr/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:3084:14)
-    at TaskQueue.executeNext_ (/usr/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:3067:27)
-    at asyncRun (/usr/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:2927:27)
-    at /usr/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:668:7
-    at process._tickCallback (internal/process/next_tick.js:109:7)
-From: Task: Run it(&quot;complete profile &quot;) in control flow
-    at UserContext.&lt;anonymous&gt; (/usr/lib/node_modules/protractor/node_modules/jasminewd2/index.js:94:19)
-    at attempt (/usr/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4297:26)
-    at QueueRunner.run (/usr/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4217:20)
-    at QueueRunner.execute (/usr/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4199:10)
-    at Spec.queueRunnerFactory (/usr/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:909:35)
-    at Spec.execute (/usr/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:526:10)
-    at UserContext.fn (/usr/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:5340:37)
-    at attempt (/usr/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4297:26)
-    at QueueRunner.run (/usr/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4217:20)
-    at runNext (/usr/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4257:20)
+<html><head><meta charset="utf-8"><style>body { font-family: Arial; }ul { list-style-position: inside; }li img { max-width: 100%; }span.passed { padding: 0 1em; color: green; }span.failed { padding: 0 1em; color: red; }span.pending { padding: 0 1em; color: orange; }span.stacktrace { white-space: pre; border: 1px solid rgb(0, 0, 0); font-size: 9pt; padding: 4px; background-color: rgb(204, 204, 204); }</style><script type="text/javascript">function showhide(id) {var e = document.getElementById(id);e.style.display = (e.style.display === "block") ? "none" : "block";}function buildQuickLinks() {var failedSpecs = document.querySelectorAll("li.failed");var quickLinksContainer = document.getElementById("quickLinks");if (!quickLinksContainer) return;if (failedSpecs.length > 0) { document.getElementById("quickLinksHeader").textContent = "Quicklink of Failure"}for (var i = 0; i < failedSpecs.length; ++i) {var li = document.createElement("li");var a = document.createElement("a");a.href = "#" + failedSpecs[i].id;a.textContent = failedSpecs[i].dataset.name + "  (" + failedSpecs[i].dataset.browser + ")";li.appendChild(a);quickLinksContainer.appendChild(li);}}function updatePassCount() {var totalPassed = document.querySelectorAll("li.passed").length;var totalFailed = document.querySelectorAll("li.failed").length;var totalSpecs = totalFailed + totalPassed;console.log("passed: %s, failed: %s, total: %s", totalPassed, totalFailed, totalSpecs);document.getElementById("summaryTotalSpecs").textContent = document.getElementById("summaryTotalSpecs").textContent + totalSpecs;document.getElementById("summaryTotalFailed").textContent = document.getElementById("summaryTotalFailed").textContent + totalFailed;if (totalFailed) {document.getElementById("summary").className = "failed";}}function start() {updatePassCount();buildQuickLinks();}window.onload = start;</script></head><body><h1>Ureed</h1><div id="summary" class="passed"><h4>Summary</h4><ul><li id="summaryTotalSpecs">Total specs tested: </li><li id="summaryTotalFailed">Total failed: </li></ul></div><ul style="list-style-type:none"><h4>activate user from admin after login  (224 s)</h4><li title="No screenshot was created for this test case." id="026a10e0-63ec-11ec-8996-8343e04e64c6" class="failed" data-spec="spec0" data-name="1_ activate user" data-browser="chrome"><span class="failed">&#10007;</span>1_ activate user (224 s)<ul><li>Failed: chrome not reachable
+  (Session info: chrome=96.0.4664.93)
+Build info: version: &#39;3.141.59&#39;, revision: &#39;e82be7d358&#39;, time: &#39;2018-11-14T08:25:53&#39;
+System info: host: &#39;taylorsuccessor&#39;, ip: &#39;192.168.1.50&#39;, os.name: &#39;Linux&#39;, os.arch: &#39;amd64&#39;, os.version: &#39;5.11.0-41-generic&#39;, java.version: &#39;11.0.13&#39;
+Driver info: driver.version: unknown [<a href="javascript:showhide('spec0--chrome-0')">stack</a>]<br/><span style="display: none" id="spec0--chrome-0" class="stacktrace">WebDriverError: chrome not reachable
+  (Session info: chrome=96.0.4664.93)
+Build info: version: &#39;3.141.59&#39;, revision: &#39;e82be7d358&#39;, time: &#39;2018-11-14T08:25:53&#39;
+System info: host: &#39;taylorsuccessor&#39;, ip: &#39;192.168.1.50&#39;, os.name: &#39;Linux&#39;, os.arch: &#39;amd64&#39;, os.version: &#39;5.11.0-41-generic&#39;, java.version: &#39;11.0.13&#39;
+Driver info: driver.version: unknown
+    at Object.checkLegacyResponse (/usr/local/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/error.js:546:15)
+    at parseHttpResponse (/usr/local/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/http.js:509:13)
+    at doSend.then.response (/usr/local/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/http.js:441:30)
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+From: Task: WebDriver.findElements(By(css selector, input[enterkeyhint=search]))
+    at thenableWebDriverProxy.schedule (/usr/local/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/webdriver.js:807:17)
+    at thenableWebDriverProxy.findElements (/usr/local/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/webdriver.js:1048:19)
+    at ptor.waitForAngular.then (/usr/local/lib/node_modules/protractor/built/element.js:159:44)
+    at ManagedPromise.invokeCallback_ (/usr/local/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:1376:14)
+    at TaskQueue.execute_ (/usr/local/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:3084:14)
+    at TaskQueue.executeNext_ (/usr/local/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:3067:27)
+    at asyncRun (/usr/local/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:2927:27)
+    at /usr/local/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:668:7Error
+    at ElementArrayFinder.applyAction_ (/usr/local/lib/node_modules/protractor/built/element.js:459:27)
+    at ElementArrayFinder.(anonymous function).args [as click] (/usr/local/lib/node_modules/protractor/built/element.js:91:29)
+    at ElementFinder.(anonymous function).args [as click] (/usr/local/lib/node_modules/protractor/built/element.js:831:22)
+    at UserContext.&lt;anonymous&gt; (/home/taylorsuccessor/Desktop/protractor/e2e-tests/twitter.test.js:16:26)
+    at /usr/local/lib/node_modules/protractor/node_modules/jasminewd2/index.js:112:25
+    at new ManagedPromise (/usr/local/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:1077:7)
+    at ControlFlow.promise (/usr/local/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:2505:12)
+    at schedulerExecute (/usr/local/lib/node_modules/protractor/node_modules/jasminewd2/index.js:95:18)
+    at TaskQueue.execute_ (/usr/local/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:3084:14)
+    at TaskQueue.executeNext_ (/usr/local/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/promise.js:3067:27)
+From: Task: Run it(&quot;1_ activate user &quot;) in control flow
+    at UserContext.&lt;anonymous&gt; (/usr/local/lib/node_modules/protractor/node_modules/jasminewd2/index.js:94:19)
+    at attempt (/usr/local/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4297:26)
+    at QueueRunner.run (/usr/local/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4217:20)
+    at QueueRunner.execute (/usr/local/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4199:10)
+    at Spec.queueRunnerFactory (/usr/local/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:909:35)
+    at Spec.execute (/usr/local/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:526:10)
+    at UserContext.fn (/usr/local/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:5340:37)
+    at attempt (/usr/local/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4297:26)
+    at QueueRunner.run (/usr/local/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4217:20)
+    at QueueRunner.execute (/usr/local/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4199:10)
 From asynchronous test: 
 Error
-    at Suite.&lt;anonymous&gt; (/home/taylorsuccessor/ureed/protractor/e2e-tests/complete_profile_after_login.test.js:46:5)
-    at addSpecsToSuite (/usr/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:1107:25)
-    at Env.describe (/usr/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:1074:7)
-    at describe (/usr/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4399:18)
-    at Object.&lt;anonymous&gt; (/home/taylorsuccessor/ureed/protractor/e2e-tests/complete_profile_after_login.test.js:15:1)
-    at Module._compile (module.js:577:32)
-    at Object.Module._extensions..js (module.js:586:10)
-    at Module.load (module.js:494:32)
-    at tryModuleLoad (module.js:453:12)</span></li></ul></li></ul><a href="javascript:showhide('a350d890-2b51-11e8-ac73-7f7436797d30')">Toggle Configuration</a><div class="config" id="a350d890-2b51-11e8-ac73-7f7436797d30" style="display: none"><h4>Configuration</h4><li>Jasmine version:  2.8.0</li><li>Browser name:  chrome</li><li>Browser version:  65.0.3325.146</li><li>Platform:  Linux</li><li>Javascript enabled:  true</li><li>Css selectors enabled:  true</li></div></body></html>
+    at Suite.&lt;anonymous&gt; (/home/taylorsuccessor/Desktop/protractor/e2e-tests/twitter.test.js:8:5)
+    at addSpecsToSuite (/usr/local/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:1107:25)
+    at Env.describe (/usr/local/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:1074:7)
+    at describe (/usr/local/lib/node_modules/protractor/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4399:18)
+    at Object.&lt;anonymous&gt; (/home/taylorsuccessor/Desktop/protractor/e2e-tests/twitter.test.js:3:1)
+    at Module._compile (internal/modules/cjs/loader.js:778:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)</span></li></ul></li></ul><a href="javascript:showhide('026a37f0-63ec-11ec-8996-8343e04e64c6')">Toggle Configuration</a><div class="config" id="026a37f0-63ec-11ec-8996-8343e04e64c6" style="display: none"><h4>Configuration</h4><li>Jasmine version:  2.8.0</li><li>Browser name:  chrome</li><li>Browser version:  </li><li>Platform:  </li><li>Javascript enabled:  </li><li>Css selectors enabled:  </li></div></body></html>
