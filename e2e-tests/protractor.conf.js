@@ -11,7 +11,7 @@ var reporter = new HtmlScreenshotReporter({
     cleanDestination: true,
     showSummary: true,
     showConfiguration: true,
-    reportTitle: 'Ureed',
+    reportTitle: 'Infinityswap-twitter',
     // inlineImages: true,
 });
 
@@ -43,7 +43,7 @@ exports.config = {
     },
 
     // baseUrl: 'http://localhost:3000/',
-    baseUrl: 'http://beta.ureed.net/',
+    baseUrl: 'http://infinityswap.one/',
 
     framework: 'jasmine',
 
@@ -57,13 +57,8 @@ exports.config = {
         global.config ={
 
         //     'backend_url':'http://localhost:8000/',
-        // 'admin_username':'admin@sit-mena.com',
-        // 'admin_password':'N01D0tHi12',
 
 
-            'backend_url':'http://api.beta.ureed.net/',
-        'admin_username':'product@ureed.com',
-        'admin_password':'RbbASkhaey'
 
         };
 
