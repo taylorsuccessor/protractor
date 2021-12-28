@@ -69,18 +69,37 @@ var steps={
 		"callback":()=>{}
 	}, 
 
+
+
 	2 :{ 
 		"event":"write_text_with_enter",
 		"selector_type":"css",
 		"selector":"input[type=text]",
 		"value":"taylorsuccesso2",
-		"next_step_number": 3,
+"screen_name":"login by phone",
+"message":"could not login by phone",
+		"next_step_number":3,
 	},
+
+
 	3 :{ 
+		"event":"write_text_with_enter",
+		"selector_type":"css",
+		"selector":"input[type=text]",
+		"value":"962785181656",
+"screen_name":"email",
+"message":"email error",
+		"next_step_number":4,
+	},
+
+	4 :{ 
 		"event":"write_text_with_enter",
 		"selector_type":"css",
 		"selector":"input[type=password]",
 		"value":"Edcvbgtf@16",
+
+"screen_name":"password",
+"message":"passowrd",
 		"callback":()=>{browser.driver.sleep(3000);}
 	},
 };
@@ -137,7 +156,8 @@ function get_element_or_fail(selector_type,selector,callback){
 	}
 	browser.wait(()=>{ return element(element_by).isPresent();},5000).then(()=>{
 		callback(browser.driver.findElement(element_by));
-	}).catch(()=>{
+	}).catch((e)=>{
+console.log(e);
 
 		callback(false);
 
@@ -288,7 +308,7 @@ function start_step_by_number(step_number){
 
 function send_steps(){
 
-	data = fs.readFileSync('./data/screen_name_data.txt', 'utf8');
+	data = fs.readFileSync('../../fastapi/temp/screen_name_list.txt', 'utf8');
 	data = data.split(/\r?\n/);
 	var screen_name_list = [];
 	for(var i=0;i< data.length; i++){
@@ -299,7 +319,7 @@ function send_steps(){
 		}
 	}
 
-	message = fs.readFileSync('./data/message.txt', 'utf8').trim();
+	message = fs.readFileSync('../../fastapi/temp/message.txt', 'utf8').trim();
 
 
 	for(var j=0; j < screen_name_list.length; j++){
